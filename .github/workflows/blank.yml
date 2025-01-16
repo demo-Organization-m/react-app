@@ -29,6 +29,7 @@ jobs:
       # Step 3: Install dependencies
       - name: Install Dependencies
         run: npm install
+        working-directory: /home/runner/work/react-app/react-app
         # working-directory: .  # Explicitly run in the root directory of the repository
 
       # Step 4: Build the React app
