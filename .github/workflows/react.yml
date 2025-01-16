@@ -3,7 +3,7 @@ name: Build and Publish React App to AWS CodeArtifact
 on:
   push:
     branches:
-      - development  # Trigger on pushes to the 'development' branch
+      - dev  # Trigger on pushes to the 'development' branch
 
 permissions:
   contents: write  # Allows GitHub Actions to push changes to the repository
@@ -46,16 +46,16 @@ jobs:
           aws codeartifact login \
             --tool npm \
             --repository npm-store \
-            --domain my-domain \
-            --domain-owner 123456789012
+            --domain ak \
+            --domain-owner 897729129103
 
       # Step 7: Publish the React build artifact to AWS CodeArtifact
       - name: Publish Build to CodeArtifact
         run: |
           tar -czvf build.tar.gz build
           aws codeartifact put-package-versions \
-            --domain my-domain \
-            --domain-owner 123456789012 \
+            --domain ak \
+            --domain-owner 897729129103 \
             --repository npm-store \
             --package build-artifact \
             --package-format generic \
