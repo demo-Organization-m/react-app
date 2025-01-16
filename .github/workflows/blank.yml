@@ -26,12 +26,13 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install Dependencies
-        working-directory: ./react-app
         run: npm install
+        working-directory: .  # Explicitly run in the root directory of the repository
 
       # Step 4: Build the React app
       - name: Build React App
         run: npm run build
+        working-directory: .  # Explicitly run in the root directory of the repository
 
       # Step 5: Configure AWS credentials for CodeArtifact
       - name: Configure AWS Credentials
