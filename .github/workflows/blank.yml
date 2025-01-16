@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev  # Trigger on pushes to the 'dev' branch
+  workflow_dispatch:  # Allow manual trigger of the workflow
 
 permissions:
   contents: write  # Allows GitHub Actions to push changes to the repository
@@ -14,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code from the repository
+      # Step 1: Check out the code from the 'dev' branch
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: dev
+          ref: dev  # Explicitly check out the 'dev' branch
 
       # Step 2: Set up Node.js environment
       - name: Set Up Node.js
@@ -29,14 +30,10 @@ jobs:
       # Step 3: Install dependencies
       - name: Install Dependencies
         run: npm install
-        working-directory: ./
-        
-        # working-directory: .  # Explicitly run in the root directory of the repository
 
       # Step 4: Build the React app
       - name: Build React App
         run: npm run build
-        working-directory: .  # Explicitly run in the root directory of the repository
 
       # Step 5: Configure AWS credentials for CodeArtifact
       - name: Configure AWS Credentials
