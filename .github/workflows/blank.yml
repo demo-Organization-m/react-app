@@ -17,6 +17,8 @@ jobs:
       # Step 1: Check out the code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:
+          ref: dev
 
       # Step 2: Set up Node.js environment
       - name: Set Up Node.js
