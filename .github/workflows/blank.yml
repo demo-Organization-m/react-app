@@ -26,6 +26,7 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install Dependencies
+        working-directory: ./react-app
         run: npm install
 
       # Step 4: Build the React app
