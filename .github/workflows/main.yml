@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev  # Trigger on pushes to the 'development' branch
+  workflow_dispatch:     
 
 permissions:
   contents: write  # Allows GitHub Actions to push changes to the repository
