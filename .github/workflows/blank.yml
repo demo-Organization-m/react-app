@@ -3,8 +3,7 @@ name: Build and Publish React App to AWS CodeArtifact
 on:
   push:
     branches:
-      - dev  # Trigger on pushes to the 'development' branch
-  workflow_dispatch:     
+      - dev  # Trigger on pushes to the 'dev' branch
 
 permissions:
   contents: write  # Allows GitHub Actions to push changes to the repository
