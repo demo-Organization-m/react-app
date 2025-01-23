@@ -53,9 +53,9 @@ jobs:
         run: |
           aws codeartifact login \
             --tool npm \
-            --repository "npm-store" \    # Hardcoded NPM repository
-            --domain "ak" \              # Hardcoded domain name
-            --domain-owner "897729129103" # Hardcoded domain owner (AWS Account ID)
+            --repository npm-store \    
+            --domain ak \           
+            --domain-owner 897729129103 
 
       # Step 8: Debug npm configuration
       - name: Debug .npmrc
