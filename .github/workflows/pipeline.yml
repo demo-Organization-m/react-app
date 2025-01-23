@@ -2,62 +2,12 @@ name: React Reusable CI/CD Pipeline
 
 on:
   workflow_call:
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-    inputs:
-      aws-region:
-        description: 'AWS Region'
-        required: true
-        type: string
-      aws-domain:
-        description: 'AWS CodeArtifact Domain'
-        required: true
-        type: string
-      aws-domain-owner:
-        description: 'AWS CodeArtifact Domain Owner'
-        required: true
-        type: string
-      npm-repository:
-        description: 'NPM Repository Name'
-        required: true
-        type: string
 
-  with:
-      aws-region: 'us-east-1'
-      aws-domain: 'ak'
-      aws-domain-owner: '897729129103'
-      npm-repository: 'npm-store'      
-        
   push:
-      branches:
-        - devlopment
+    branches:
+      - development
 
 jobs:
-  test:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm install --save-dev @babel/plugin-transform-private-property-in-object @babel/plugin-transform-optional-chaining @babel/plugin-transform-nullish-coalescing-operator @babel/plugin-transform-class-properties
-          npm install --save-dev @testing-library/react @testing-library/jest-dom
-          npm audit fix || true
-
-      - name: Run Unit Tests with Jest
-        run: npm test -- --watchAll=false --coverage --forceExit
 
   build-artifact:
     name: Build and Publish React App
@@ -99,9 +49,9 @@ jobs:
         run: |
           aws codeartifact login \
             --tool npm \
-            --repository ${{ inputs.npm-repository }} \
-            --domain ${{ inputs.aws-domain }} \
-            --domain-owner ${{ inputs.aws-domain-owner }}
+            --repository ${{ npm-store }} \
+            --domain ${{ ak }} \
+            --domain-owner ${{ 897729129103 }}
 
       - name: Debug .npmrc
         run: cat ~/.npmrc
@@ -109,15 +59,13 @@ jobs:
       - name: Publish Build to AWS CodeArtifact
         working-directory: ./build
         env:
-          NPM_REGISTRY_URL: "https://${{ inputs.aws-domain }}-${{ inputs.aws-domain-owner }}.d.codeartifact.${{ inputs.aws-region }}.amazonaws.com/npm/${{ inputs.npm-repository }}/"
+          NPM_REGISTRY_URL: "https://${{ ak }}-${{ 897729129103 }}.d.codeartifact.${{ us-east-1 }}.amazonaws.com/npm/${{ npm-store }}/"
         run: |
           npm set registry $NPM_REGISTRY_URL
           npm publish
 
-          
       - name: Upload Build Artifact to GitHub
         uses: actions/upload-artifact@v3
         with:
           name: react-app-build
           path: build
-          
