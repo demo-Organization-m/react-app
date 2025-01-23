@@ -38,6 +38,7 @@ on:
   push:
       branches:
         - development
+
 jobs:
   test:
     name: Run Unit Tests
