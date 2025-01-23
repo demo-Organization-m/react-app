@@ -50,12 +50,8 @@ jobs:
 
       # Step 7: Log in to AWS CodeArtifact
       - name: Login to AWS CodeArtifact
-        run: |
-          aws codeartifact login \
-            --tool npm \
-            --repository npm-store \    
-            --domain ak \           
-            --domain-owner 897729129103 
+        run: aws codeartifact login --tool npm --repository npm-store --domain ak --domain-owner 897729129103 --region us-east-1
+
 
       # Step 8: Debug npm configuration
       - name: Debug .npmrc
