@@ -1,33 +1,35 @@
-name: React Reusable CI/CD Pipeline
+name: React CI/CD Pipeline
 
 on:
-  workflow_call:
-
   push:
     branches:
       - development
 
 jobs:
-
   build-artifact:
     name: Build and Publish React App
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Step 3: Install dependencies
       - name: Install Dependencies
         run: npm install
 
+      # Step 4: Build the React application
       - name: Build React App
         run: npm run build
 
+      # Step 5: Create package.json for the build artifact
       - name: Create package.json for Build
         run: |
           echo '{
@@ -38,32 +40,37 @@ jobs:
             "license": "MIT"
           }' > build/package.json
 
+      # Step 6: Configure AWS credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.aws-region }}
+          aws-region: "us-east-1"  # Hardcoded AWS region
 
+      # Step 7: Log in to AWS CodeArtifact
       - name: Login to AWS CodeArtifact
         run: |
           aws codeartifact login \
             --tool npm \
-            --repository ${{ npm-store }} \
-            --domain ${{ ak }} \
-            --domain-owner ${{ 897729129103 }}
+            --repository "npm-store" \    # Hardcoded NPM repository
+            --domain "ak" \              # Hardcoded domain name
+            --domain-owner "897729129103" # Hardcoded domain owner (AWS Account ID)
 
+      # Step 8: Debug npm configuration
       - name: Debug .npmrc
         run: cat ~/.npmrc
 
+      # Step 9: Publish the build artifact to AWS CodeArtifact
       - name: Publish Build to AWS CodeArtifact
         working-directory: ./build
         env:
-          NPM_REGISTRY_URL: "https://${{ ak }}-${{ 897729129103 }}.d.codeartifact.${{ us-east-1 }}.amazonaws.com/npm/${{ npm-store }}/"
+          NPM_REGISTRY_URL: "https://ak-897729129103.d.codeartifact.us-east-1.amazonaws.com/npm/npm-store/"
         run: |
           npm set registry $NPM_REGISTRY_URL
           npm publish
 
+      # Step 10: Upload the build artifact to GitHub
       - name: Upload Build Artifact to GitHub
         uses: actions/upload-artifact@v3
         with:
