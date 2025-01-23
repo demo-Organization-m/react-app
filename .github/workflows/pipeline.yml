@@ -10,7 +10,7 @@ on:
     inputs:
       aws-region:
         description: 'AWS Region'
-        required: "us-east-1"
+        required: true
         type: string
       aws-domain:
         description: 'AWS CodeArtifact Domain'
@@ -24,6 +24,12 @@ on:
         description: 'NPM Repository Name'
         required: true
         type: string
+
+  with:
+      aws-region: 'us-east-1'
+      aws-domain: 'ak'
+      aws-domain-owner: '897729129103'
+      npm-repository: 'npm-store'      
         
   push:
       branches:
