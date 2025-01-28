@@ -1,4 +1,4 @@
- # Use an official Nginx image to serve the React build      
+ # Use an official Nginx image to serve the React build       
 FROM nginx:stable-alpine  
 
 # Set the working directory inside the container
