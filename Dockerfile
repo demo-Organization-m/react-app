@@ -5,13 +5,10 @@ FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html  
 
 # Copy the extracted React build artifact into the Nginx web directory
-COPY extracted-package/ . 
-
-# Remove the default Nginx configuration file if it exists
-RUN rm /etc/nginx/conf.d/default.conf || true
+COPY /home/runner/work/react-app/react-app/build . 
 
 # Add a custom Nginx configuration to listen on port 8001
-# COPY extracted-package/build/nginx.conf /etc/nginx/conf.d/
+COPY /home/runner/work/react-app/react-app/build/nginx.conf /etc/nginx/conf.d/
 
 # Expose port 8001 for the Nginx server
 EXPOSE 8001
