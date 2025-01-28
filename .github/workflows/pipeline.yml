@@ -3,7 +3,7 @@ name: React CI/CD
 on:
   push:
     branches:
-      - development
+      - devlopment
   workflow_dispatch:
 
 jobs:
