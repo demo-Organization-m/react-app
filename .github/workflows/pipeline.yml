@@ -8,7 +8,7 @@ on:
 
 jobs:
   trigger-react-ci-cd:
-    uses: demo-Organization-m/dt-module-python-pipeline-repo/.github/workflows/react-pipeline.yml@main
+    uses: demo-Organization-m/module-react/.github/workflows/react.yml@main
     secrets: 
       inherit 
     permissions:
