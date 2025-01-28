@@ -5,7 +5,7 @@ FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html  
 
 # Copy the extracted React build artifact into the Nginx web directory
-COPY extracted-package/ .
+COPY extracted-package/ . 
 
 # Remove the default Nginx configuration file if it exists
 RUN rm /etc/nginx/conf.d/default.conf || true
