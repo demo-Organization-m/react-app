@@ -11,7 +11,7 @@ COPY extracted-package/ .
 RUN rm /etc/nginx/conf.d/default.conf || true
 
 # Add a custom Nginx configuration to listen on port 8001
-COPY extracted-package/build/nginx.conf /etc/nginx/conf.d/
+# COPY extracted-package/build/nginx.conf /etc/nginx/conf.d/
 
 # Expose port 8001 for the Nginx server
 EXPOSE 8001
