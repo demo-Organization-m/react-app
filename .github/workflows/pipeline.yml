@@ -16,7 +16,7 @@ jobs:
     with:
       aws-region: 'us-east-1'
       sonar-project-key: 'react_sonar_test'
-      aws-domain: 'aeiforo'
-      aws-domain-owner: '061039767866'
+      aws-domain: 'ak'
+      aws-domain-owner: '897729129103'
       npm-repository: 'npm-store'
-      ecr-repo-name: 'frontend-ecr-repo'
+      ecr-repo-name: 'demo-react'
