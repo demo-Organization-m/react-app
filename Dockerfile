@@ -1,7 +1,7 @@
  # Use an official Nginx image to serve the React build            
 FROM nginx:stable-alpine     
  
-# Set the working directory inside the container
+# Set the working directory inside the container 
 WORKDIR /usr/share/nginx/html
 
 # Copy the extracted React build artifact into the Nginx web directory
