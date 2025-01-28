@@ -2,7 +2,7 @@
 FROM nginx:stable-alpine     
  
 # Set the working directory inside the container 
-WORKDIR /usr/share/nginx/html 
+WORKDIR /usr/share/nginx/html  
 
 # Copy the extracted React build artifact into the Nginx web directory
 COPY extracted-package/ .
